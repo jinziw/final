@@ -1,0 +1,41 @@
+---
+name: cmpsc-302-spring-2019-practical6
+break: true
+indent: 4
+---
+# --> check the source code for various characteristics
+# note that without an "--exact" the check is an "at least"
+src/www/:
+    index.html:
+        --fragment "<title>" --count 1 --exact
+        --fragment "<h1>" --count 1 --exact
+        --fragment "<h2>" --count 2 --exact
+        --fragment "<h3>" --count 2 --exact
+        --fragment "form action" --count 1 --exact
+        --fragment "_next" --count 1 --exact
+        --fragment "_replyto" --count 1 --exact
+        --fragment "label" --count 12
+        --fragment "<a href" --count 3
+        --fragment "_blank" --count 3
+        --fragment "<html>" --count 1 --exact
+        --fragment "<head>" --count 1 --exact
+        --fragment "<body>" --count 1 --exact
+        --fragment "<ol>" --count 1 --exact
+        --fragment "<li>" --count 3 --exact
+        --fragment "site.css" --count 1 --exact
+        --fragment "emoji.css" --count 1 --exact
+        --fragment "table.css" --count 1 --exact
+        --fragment "<tr>" --count 5 --exact
+        --fragment "TODO" --count 0 --exact
+# --> check the submission image exists
+images/survey_submission.png:
+    --exists
+src/www/css:
+    site.css:
+        --fragment "font-family" --count 2
+# --> check the number of commits beyond a threshold
+--commits 13
+# --> check that the linter executes and produces 0 lines of output
+--command "htmlhint src/www/index.html" --executes
+--command "htmlhint src/www/index.html" --count 1 --exact
+--command "htmlhint src/www/index.html" --fragment "no errors found" --count 1 --exact
